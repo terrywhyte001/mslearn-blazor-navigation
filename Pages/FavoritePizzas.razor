@@ -1,0 +1,228 @@
+@page "/FavoritePizzas"
+@page "/FavoritePizzas/{*favorites}"
+
+<div class="top-bar">
+    <a class="logo" href="">
+        <img src="img/logo.svg" />
+    </a>
+
+    <NavLink href="" class="nav-tab" Match="NavLinkMatch.All">
+        <img src="img/pizza-slice.svg" />
+        <div>Get Pizza</div>
+    </NavLink>
+
+    <NavLink href="myorders" class="nav-tab">
+        <img src="img/bike.svg" />
+        <div>My Orders</div>
+    </NavLink>
+</div>
+
+<div class="main">
+    <h1>Your Favorite Pizzas (Catch-All Route)</h1>
+    
+    <div class="catch-all-demo">
+        <h2>Catch-All Route Parameter Demo</h2>
+        
+        <div class="favorite-list">
+            @if (string.IsNullOrEmpty(Favorites))
+            {
+                <p><em>No favorites specified. Try adding paths after the URL:</em></p>
+                <ul>
+                    <li><NavLink href="/FavoritePizzas/margherita">/FavoritePizzas/margherita</NavLink></li>
+                    <li><NavLink href="/FavoritePizzas/margherita/hawaiian">/FavoritePizzas/margherita/hawaiian</NavLink></li>
+                    <li><NavLink href="/FavoritePizzas/pepperoni/formaggio/vegetarian">/FavoritePizzas/pepperoni/formaggio/vegetarian</NavLink></li>
+                </ul>
+            }
+            else
+            {
+                <p><strong>Your favorite pizzas path:</strong></p>
+                <div class="path-display">
+                    <code>@Favorites</code>
+                </div>
+
+                <h3>Parsed Favorites:</h3>
+                <ul class="parsed-list">
+                    @foreach (var pizza in Favorites.Split('/'))
+                    {
+                        <li>
+                            <span class="pizza-badge">🍕 @(char.ToUpper(pizza[0]) + pizza.Substring(1))</span>
+                        </li>
+                    }
+                </ul>
+
+                <div class="info-message">
+                    <p>
+                        The catch-all route parameter (*favorites) captured the entire path: 
+                        <strong>@Favorites</strong>
+                    </p>
+                </div>
+            }
+        </div>
+
+        <div class="explanation-box">
+            <h3>How Catch-All Parameters Work:</h3>
+            <p>
+                A catch-all route parameter captures paths across multiple URI folder boundaries (forward slashes).
+            </p>
+            <div class="example-table">
+                <div class="example-row header">
+                    <div class="example-cell">Route Parameter</div>
+                    <div class="example-cell">URL</div>
+                    <div class="example-cell">Captured Value</div>
+                </div>
+                <div class="example-row">
+                    <div class="example-cell"><code>{{favorite}}</code></div>
+                    <div class="example-cell">/favoritepizza/margherita/hawaiian</div>
+                    <div class="example-cell">margherita (ignores hawaiian)</div>
+                </div>
+                <div class="example-row">
+                    <div class="example-cell"><code>{{*favorites}}</code></div>
+                    <div class="example-cell">/favoritepizzas/margherita/hawaiian</div>
+                    <div class="example-cell">margherita/hawaiian</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .catch-all-demo {
+        padding: 20px;
+        background-color: #f5f5f5;
+        border-radius: 8px;
+    }
+
+    .favorite-list {
+        background-color: white;
+        padding: 20px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+    }
+
+    .favorite-list ul {
+        list-style: none;
+        padding: 0;
+    }
+
+    .favorite-list li {
+        padding: 8px;
+        margin: 5px 0;
+        background-color: #f9f9f9;
+        border-radius: 3px;
+    }
+
+    .favorite-list a {
+        color: #ff6b35;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+    .favorite-list a:hover {
+        text-decoration: underline;
+    }
+
+    .path-display {
+        background-color: #f0f0f0;
+        border-left: 4px solid #ff6b35;
+        padding: 15px;
+        margin: 15px 0;
+        border-radius: 4px;
+        overflow-x: auto;
+    }
+
+    .path-display code {
+        font-family: 'Courier New', monospace;
+        font-size: 14px;
+        color: #333;
+        word-break: break-all;
+    }
+
+    .parsed-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        list-style: none;
+        padding: 0;
+        margin: 15px 0;
+    }
+
+    .pizza-badge {
+        display: inline-block;
+        background-color: #ff6b35;
+        color: white;
+        padding: 10px 15px;
+        border-radius: 20px;
+        font-weight: bold;
+        font-size: 14px;
+    }
+
+    .info-message {
+        background-color: #e3f2fd;
+        border: 2px solid #2196f3;
+        padding: 15px;
+        border-radius: 4px;
+        margin-top: 15px;
+    }
+
+    .info-message p {
+        margin: 0;
+        color: #1565c0;
+    }
+
+    .explanation-box {
+        background-color: white;
+        border: 2px solid #4caf50;
+        padding: 20px;
+        border-radius: 8px;
+        margin-top: 20px;
+    }
+
+    .explanation-box h3 {
+        color: #4caf50;
+        margin-top: 0;
+    }
+
+    .example-table {
+        margin-top: 15px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        overflow: hidden;
+    }
+
+    .example-row {
+        display: flex;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .example-row.header {
+        background-color: #4caf50;
+        color: white;
+        font-weight: bold;
+    }
+
+    .example-row:last-child {
+        border-bottom: none;
+    }
+
+    .example-row:nth-child(odd) {
+        background-color: #f9f9f9;
+    }
+
+    .example-cell {
+        flex: 1;
+        padding: 12px;
+        overflow-x: auto;
+    }
+
+    .example-cell code {
+        background-color: #f0f0f0;
+        padding: 2px 5px;
+        border-radius: 3px;
+        font-family: monospace;
+    }
+</style>
+
+@code {
+    [Parameter]
+    public string Favorites { get; set; }
+}

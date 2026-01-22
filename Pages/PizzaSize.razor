@@ -1,0 +1,102 @@
+@page "/PizzaSize"
+@page "/PizzaSize/{preferredsize:int}"
+
+<div class="top-bar">
+    <a class="logo" href="">
+        <img src="img/logo.svg" />
+    </a>
+
+    <NavLink href="" class="nav-tab" Match="NavLinkMatch.All">
+        <img src="img/pizza-slice.svg" />
+        <div>Get Pizza</div>
+    </NavLink>
+
+    <NavLink href="myorders" class="nav-tab">
+        <img src="img/bike.svg" />
+        <div>My Orders</div>
+    </NavLink>
+</div>
+
+<div class="main">
+    <h1>Pizza Size Selector</h1>
+    
+    <div class="size-selector">
+        @if (PreferredSize == 0)
+        {
+            <p><strong>Default size:</strong> 12 inches</p>
+        }
+        else
+        {
+            <p><strong>Your preferred pizza size:</strong> @PreferredSize inches</p>
+        }
+
+        <h3>Choose Your Preferred Size:</h3>
+        <div class="size-buttons">
+            <NavLink href="/PizzaSize/8" class="size-btn">8"</NavLink>
+            <NavLink href="/PizzaSize/10" class="size-btn">10"</NavLink>
+            <NavLink href="/PizzaSize/12" class="size-btn">12"</NavLink>
+            <NavLink href="/PizzaSize/14" class="size-btn">14"</NavLink>
+            <NavLink href="/PizzaSize/16" class="size-btn">16"</NavLink>
+        </div>
+
+        <p class="info">
+            <small>Note: Try visiting /PizzaSize/margherita - it won't match because the route constraint requires an integer!</small>
+        </p>
+    </div>
+</div>
+
+<style>
+    .size-selector {
+        padding: 20px;
+        border: 2px solid #4caf50;
+        border-radius: 8px;
+        background-color: #f1f8f4;
+    }
+
+    .size-selector p {
+        font-size: 16px;
+        margin: 10px 0;
+    }
+
+    .size-buttons {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin: 15px 0;
+    }
+
+    .size-btn {
+        padding: 10px 20px;
+        background-color: #4caf50;
+        color: white;
+        text-decoration: none;
+        border-radius: 4px;
+        font-weight: bold;
+        border: 2px solid #4caf50;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .size-btn:hover {
+        background-color: #45a049;
+        border-color: #45a049;
+    }
+
+    .size-btn.active {
+        background-color: #2e7d32;
+        border-color: #2e7d32;
+    }
+
+    .info {
+        color: #666;
+        margin-top: 20px;
+        padding: 10px;
+        background-color: white;
+        border-left: 4px solid #ff9800;
+    }
+</style>
+
+@code {
+    [Parameter]
+    public int PreferredSize { get; set; }
+}

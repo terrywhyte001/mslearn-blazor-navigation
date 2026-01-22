@@ -1,0 +1,86 @@
+@implements IAsyncDisposable
+@inject NavigationManager NavigationManager
+
+<div class="navbar navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/">
+            🍕 Blazing Pizza
+        </a>
+        <button class="navbar-toggler" type="button" @onclick="ToggleNavMenu" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
+            <nav class="flex-column">
+                <div class="nav-item px-3">
+                    <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
+                        🍕 Order Pizza
+                    </NavLink>
+                </div>
+                <div class="nav-item px-3">
+                    <NavLink class="nav-link" href="myorders" Match="NavLinkMatch.Prefix">
+                        📋 My Orders
+                    </NavLink>
+                </div>
+                <div class="nav-item px-3">
+                    <NavLink class="nav-link" href="pizzasize" Match="NavLinkMatch.Prefix">
+                        📏 Pizza Size
+                    </NavLink>
+                </div>
+                <div class="nav-item px-3">
+                    <NavLink class="nav-link" href="favoritepizzas" Match="NavLinkMatch.Prefix">
+                        ❤️ Favorites
+                    </NavLink>
+                </div>
+            </nav>
+        </div>
+    </div>
+</div>
+
+@code {
+    private bool collapseNavMenu = true;
+
+    private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+
+    private void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
+
+    ValueTask IAsyncDisposable.DisposeAsync()
+    {
+        return ValueTask.CompletedTask;
+    }
+}
+
+<style>
+    .navbar {
+        margin-bottom: 20px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .navbar-brand {
+        font-size: 20px;
+        font-weight: bold;
+        color: white !important;
+    }
+
+    .nav-item {
+        margin: 5px 0;
+    }
+
+    .nav-link {
+        color: rgba(255,255,255,0.8);
+        padding: 0.5rem 1rem;
+        border-radius: 0.25rem;
+    }
+
+    .nav-link:hover {
+        background-color: rgba(255,255,255,0.1);
+        color: white;
+    }
+
+    .nav-link.active {
+        background-color: #ff6b35;
+        color: white;
+    }
+</style>

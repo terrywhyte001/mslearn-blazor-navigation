@@ -1,0 +1,176 @@
+@page "/PizzaConstraints"
+
+<div class="main">
+    <h1>Pizza Route Constraints Demo</h1>
+    
+    <div class="constraints-demo">
+        <h2>Route Constraints Examples</h2>
+        
+        <div class="constraint-section">
+            <h3>Boolean Constraint</h3>
+            <p>Try these URLs:</p>
+            <ul>
+                <li><NavLink href="/PizzaConstraints/true">Visit /PizzaConstraints/true</NavLink> (Shows vegan option)</li>
+                <li><NavLink href="/PizzaConstraints/false">Visit /PizzaConstraints/false</NavLink> (Shows meat option)</li>
+                <li><NavLink href="/PizzaConstraints/maybe">/PizzaConstraints/maybe (Won't match - not a boolean)</NavLink></li>
+            </ul>
+            @if (IsVegan)
+            {
+                <p style="background-color: #a5d6a7; padding: 10px; border-radius: 4px;">
+                    ✓ <strong>Vegan-friendly pizzas:</strong> Margherita, Fiorentina, Vegetarian Supreme
+                </p>
+            }
+        </div>
+
+        <div class="constraint-section">
+            <h3>Decimal Constraint</h3>
+            <p>Try these URLs:</p>
+            <ul>
+                <li><NavLink href="/PizzaConstraints/15.00">Visit /PizzaConstraints/15.00</NavLink></li>
+                <li><NavLink href="/PizzaConstraints/20.50">Visit /PizzaConstraints/20.50</NavLink></li>
+                <li><NavLink href="/PizzaConstraints/expensive">/PizzaConstraints/expensive (Won't match - not a decimal)</NavLink></li>
+            </ul>
+            @if (MaxPrice > 0)
+            {
+                <p style="background-color: #e1bee7; padding: 10px; border-radius: 4px;">
+                    <strong>Maximum price: £@MaxPrice</strong> - Showing pizzas within budget
+                </p>
+            }
+        </div>
+
+        <div class="info-box">
+            <h3>Available Route Constraints:</h3>
+            <table class="constraints-table">
+                <tr>
+                    <th>Constraint</th>
+                    <th>Example</th>
+                    <th>Matches</th>
+                </tr>
+                <tr>
+                    <td><code>bool</code></td>
+                    <td><code>{{vegan:bool}}</code></td>
+                    <td>/pizzas/true, /pizzas/false</td>
+                </tr>
+                <tr>
+                    <td><code>datetime</code></td>
+                    <td><code>{{birthdate:datetime}}</code></td>
+                    <td>/customers/1995-12-12</td>
+                </tr>
+                <tr>
+                    <td><code>decimal</code></td>
+                    <td><code>{{maxprice:decimal}}</code></td>
+                    <td>/pizzas/15.00</td>
+                </tr>
+                <tr>
+                    <td><code>double</code></td>
+                    <td><code>{{weight:double}}</code></td>
+                    <td>/pizzas/1.234</td>
+                </tr>
+                <tr>
+                    <td><code>float</code></td>
+                    <td><code>{{weight:float}}</code></td>
+                    <td>/pizzas/1.564</td>
+                </tr>
+                <tr>
+                    <td><code>guid</code></td>
+                    <td><code>{{pizzaid:guid}}</code></td>
+                    <td>/pizzas/CD2C1638-1638-72D5-1638-DEADBEEF1638</td>
+                </tr>
+                <tr>
+                    <td><code>long</code></td>
+                    <td><code>{{totalsales:long}}</code></td>
+                    <td>/pizzas/568192454</td>
+                </tr>
+                <tr>
+                    <td><code>int</code></td>
+                    <td><code>{{pizzaid:int}}</code></td>
+                    <td>/pizzas/12</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+<style>
+    .constraints-demo {
+        padding: 20px;
+        background-color: #f5f5f5;
+        border-radius: 8px;
+    }
+
+    .constraint-section {
+        margin: 20px 0;
+        padding: 15px;
+        background-color: white;
+        border-left: 4px solid #2196f3;
+        border-radius: 4px;
+    }
+
+    .constraint-section h3 {
+        margin-top: 0;
+        color: #2196f3;
+    }
+
+    .constraint-section ul {
+        list-style: none;
+        padding: 0;
+    }
+
+    .constraint-section li {
+        padding: 8px;
+        margin: 5px 0;
+        background-color: #f9f9f9;
+        border-radius: 3px;
+    }
+
+    .constraint-section a {
+        color: #2196f3;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+    .constraint-section a:hover {
+        text-decoration: underline;
+    }
+
+    .info-box {
+        margin-top: 20px;
+        padding: 15px;
+        background-color: #fff9c4;
+        border: 2px solid #fbc02d;
+        border-radius: 4px;
+    }
+
+    .constraints-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 10px;
+    }
+
+    .constraints-table th,
+    .constraints-table td {
+        padding: 10px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .constraints-table th {
+        background-color: #fbc02d;
+        font-weight: bold;
+    }
+
+    .constraints-table code {
+        background-color: #f0f0f0;
+        padding: 2px 5px;
+        border-radius: 3px;
+        font-family: monospace;
+    }
+</style>
+
+@code {
+    [Parameter]
+    public bool IsVegan { get; set; }
+
+    [Parameter]
+    public decimal MaxPrice { get; set; }
+}

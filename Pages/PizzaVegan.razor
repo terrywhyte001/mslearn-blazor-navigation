@@ -1,0 +1,57 @@
+@page "/PizzaVegan"
+@page "/PizzaVegan/{vegan:bool}"
+
+<div class="main">
+    <h1>Vegan Pizza Options</h1>
+    
+    <div class="constraint-section">
+        <h2>Boolean Constraint Demo</h2>
+        <p>Try these URLs:</p>
+        <ul>
+            <li><NavLink href="/PizzaVegan/true">Visit /PizzaVegan/true</NavLink> (Shows vegan option)</li>
+            <li><NavLink href="/PizzaVegan/false">Visit /PizzaVegan/false</NavLink> (Shows meat option)</li>
+        </ul>
+        @if (IsVegan)
+        {
+            <p style="background-color: #a5d6a7; padding: 10px; border-radius: 4px;">
+                ✓ <strong>Vegan-friendly pizzas:</strong> Margherita, Fiorentina, Vegetarian Supreme
+            </p>
+        }
+        else
+        {
+            <p style="background-color: #ffcccc; padding: 10px; border-radius: 4px;">
+                ✓ <strong>All pizzas:</strong> Including meat options
+            </p>
+        }
+    </div>
+
+    <div class="info-box" style="margin-top: 20px; padding: 15px; background-color: #fff9c4; border: 2px solid #fbc02d; border-radius: 4px;">
+        <h3>About Bool Constraints:</h3>
+        <p>
+            The <code>{vegan:bool}</code> constraint only accepts <strong>true</strong> or <strong>false</strong> values.
+        </p>
+        <table style="width: 100%; border-collapse: collapse; margin-top: 10px;">
+            <tr style="background-color: #fbc02d;">
+                <th style="padding: 10px; text-align: left;">URL</th>
+                <th style="padding: 10px; text-align: left;">Matches</th>
+            </tr>
+            <tr style="border-bottom: 1px solid #ddd;">
+                <td style="padding: 10px;">/PizzaVegan/true</td>
+                <td style="padding: 10px;">✓ YES</td>
+            </tr>
+            <tr style="border-bottom: 1px solid #ddd;">
+                <td style="padding: 10px;">/PizzaVegan/false</td>
+                <td style="padding: 10px;">✓ YES</td>
+            </tr>
+            <tr>
+                <td style="padding: 10px;">/PizzaVegan/maybe</td>
+                <td style="padding: 10px;">✗ NO (not a bool)</td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public bool IsVegan { get; set; }
+}

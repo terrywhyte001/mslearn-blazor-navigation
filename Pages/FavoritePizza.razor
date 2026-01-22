@@ -1,0 +1,74 @@
+@page "/FavoritePizza/{favorite}"
+
+<div class="top-bar">
+    <a class="logo" href="">
+        <img src="img/logo.svg" />
+    </a>
+
+    <NavLink href="" class="nav-tab" Match="NavLinkMatch.All">
+        <img src="img/pizza-slice.svg" />
+        <div>Get Pizza</div>
+    </NavLink>
+
+    <NavLink href="myorders" class="nav-tab">
+        <img src="img/bike.svg" />
+        <div>My Orders</div>
+    </NavLink>
+</div>
+
+<div class="main">
+    <h1>Your Favorite Pizza</h1>
+    
+    <div class="favorite-pizza-card">
+        <p>Your favorite pizza is: <strong>@Favorite</strong></p>
+        
+        <h3>Recommended Similar Pizzas:</h3>
+        <ul>
+            <li><a href="/FavoritePizza/Margherita">Margherita</a></li>
+            <li><a href="/FavoritePizza/Formaggio">Formaggio (Four Cheese)</a></li>
+            <li><a href="/FavoritePizza/Pepperoni">Pepperoni</a></li>
+        </ul>
+    </div>
+</div>
+
+<style>
+    .favorite-pizza-card {
+        border: 2px solid #ff6b35;
+        padding: 20px;
+        border-radius: 8px;
+        background-color: #fff3e0;
+        margin: 20px 0;
+    }
+
+    .favorite-pizza-card p {
+        font-size: 18px;
+        margin: 0 0 15px 0;
+    }
+
+    .favorite-pizza-card ul {
+        list-style: none;
+        padding: 0;
+    }
+
+    .favorite-pizza-card li {
+        padding: 10px;
+        margin: 5px 0;
+        background-color: white;
+        border-radius: 4px;
+    }
+
+    .favorite-pizza-card a {
+        color: #ff6b35;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+    .favorite-pizza-card a:hover {
+        text-decoration: underline;
+    }
+</style>
+
+@code {
+    [Parameter]
+    public string Favorite { get; set; }
+}
